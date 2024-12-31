@@ -20,7 +20,7 @@ def print_matrix(name: str, matrix: np.ndarray):
 
 def main():
     multiplier = MatrixMultiplier()
-    A, B = multiplier.generate_matrices(20)
+    A, B = multiplier.generate_matrices(4)
 
     if multiplier.rank == 0:
         #print(np.array2string(A, precision=2, suppress_small=True))
@@ -35,6 +35,21 @@ def main():
 
         print("\nPerformance Metrics:")
         print(f"Serial Execution Time: {execution_time:.6f} seconds")
+
+    # Distribute the data
+    local_A, local_B = multiplier.distribute_data(A, B)
+    
+    # Each process prints its portion
+    print(f"\nProcess {multiplier.rank} received:")
+    print(f"Local A shape: {local_A.shape}")
+    print_matrix(f"Local A from rank {multiplier.rank}", local_A)
+    print_matrix(f"B in rank {multiplier.rank}", local_B)
+    
+    # Print distribution metrics from rank 0
+    if multiplier.rank == 0:
+        print("\nDistribution metrics:")
+        for key, value in multiplier.metrics['distribution_pattern'].items():
+            print(f"{key}: {value}")
     
 if __name__ == "__main__":
     main()
