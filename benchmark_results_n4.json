@@ -1,0 +1,62 @@
+[
+  {
+    "serial_time": 8.058547973632812e-05,
+    "matrix_size": 50,
+    "num_processes": 4,
+    "parallel_time": 0.026759862899780273,
+    "speedup": 0.0030114309642815776,
+    "efficiency": 0.0007528577410703944,
+    "compute_time": 5.2928924560546875e-05,
+    "gather_time": 3.1948089599609375e-05
+  },
+  {
+    "serial_time": 0.008893251419067383,
+    "matrix_size": 100,
+    "num_processes": 4,
+    "parallel_time": 0.010111093521118164,
+    "speedup": 0.8795538682826759,
+    "efficiency": 0.21988846707066897,
+    "compute_time": 0.00010991096496582031,
+    "gather_time": 7.653236389160156e-05
+  },
+  {
+    "serial_time": 0.00688481330871582,
+    "matrix_size": 500,
+    "num_processes": 4,
+    "parallel_time": 0.13468575477600098,
+    "speedup": 0.051117605719818805,
+    "efficiency": 0.012779401429954701,
+    "compute_time": 0.03268003463745117,
+    "gather_time": 0.06348848342895508
+  },
+  {
+    "serial_time": 0.03900766372680664,
+    "matrix_size": 1000,
+    "num_processes": 4,
+    "parallel_time": 0.27112793922424316,
+    "speedup": 0.14387179660796365,
+    "efficiency": 0.03596794915199091,
+    "compute_time": 0.06082558631896973,
+    "gather_time": 0.040227651596069336
+  },
+  {
+    "serial_time": 0.2020266056060791,
+    "matrix_size": 2000,
+    "num_processes": 4,
+    "parallel_time": 0.714390754699707,
+    "speedup": 0.282795660885898,
+    "efficiency": 0.0706989152214745,
+    "compute_time": 0.19934320449829102,
+    "gather_time": 0.05101490020751953
+  },
+  {
+    "serial_time": 2.4771244525909424,
+    "matrix_size": 5000,
+    "num_processes": 4,
+    "parallel_time": 5.565951585769653,
+    "speedup": 0.44504958665543415,
+    "efficiency": 0.11126239666385854,
+    "compute_time": 2.023362874984741,
+    "gather_time": 0.10438823699951172
+  }
+]
