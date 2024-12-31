@@ -77,3 +77,51 @@ class MatrixMultiplier:
                         local_A)  # receive buffer
 
         return local_A, B
+    
+    def parallel_multiply(self, local_A: np.ndarray, B: np.ndarray) -> np.ndarray:
+        start_time = time.time()
+        local_result = np.matmul(local_A, B)
+        execution_time = time.time() - start_time
+        
+        # Gather compute times from all processes
+        all_times = self.comm.gather(execution_time, root=0)
+        if self.rank == 0:
+            self.metrics['parallel_compute_time'] = max(all_times)  # Use max time as overall compute time
+            
+        return local_result
+
+    def gather_results(self, local_result: np.ndarray, matrix_shape: tuple) -> Optional[np.ndarray]:
+        """
+        Gather results from all processes
+        """
+        if self.rank == 0:
+            rows_per_process = matrix_shape[0] // self.size
+            remainder = matrix_shape[0] % self.size
+            
+            recv_counts = np.array([rows_per_process] * self.size)
+            recv_counts[-1] += remainder
+            displacements = np.array([0] + [rows_per_process] * (self.size-1))
+            displacements = np.cumsum(displacements)
+            
+            result = np.empty((matrix_shape[0], matrix_shape[1]), dtype=np.float64)
+        else:
+            result = None
+            recv_counts = None
+            displacements = None
+
+        start_time = time.time()
+        self.comm.Gatherv(local_result,
+                         [result,
+                          recv_counts * matrix_shape[1] if self.rank == 0 else None,
+                          displacements * matrix_shape[1] if self.rank == 0 else None,
+                          MPI.DOUBLE],
+                         root=0)
+        
+        gather_time = time.time() - start_time
+        
+        # Gather timing information
+        all_gather_times = self.comm.gather(gather_time, root=0)
+        if self.rank == 0:
+            self.metrics['gather_time'] = max(all_gather_times)  # Use max time as overall gather time
+        
+        return result
