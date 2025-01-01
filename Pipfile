@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 numpy = "*"
+tabulate = "*"
+pandas = "*"
 
 [dev-packages]
 
