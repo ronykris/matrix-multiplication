@@ -47,6 +47,8 @@ The implementation measures:
 - Efficiency (speedup/number_of_processes)
 - Communication overhead
 
+[Benchmarking Report](./performance_report.md)
+
 ## Limitations
 Performance degradation occurs with:
 - Small matrix sizes (communication overhead dominates)
