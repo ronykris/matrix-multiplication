@@ -26,6 +26,12 @@ mpiexec -n 4 python multiplier.py
 mpiexec -n 8 python multiplier.py
 ```
 
+Test across multiple nodes (requires hostfile)
+```bash
+mpiexec -n 8 --hostfile hostfile.txt python multiplier.py
+```
+
+
 ## Project Structure
 - `matrixMultiplication.py`: Core implementation class
 - `multiplier.py`: Benchmark driver and visualization
@@ -46,4 +52,20 @@ Performance degradation occurs with:
 - Small matrix sizes (communication overhead dominates)
 - Increasing process count (diminishing returns)
 - Load imbalance in matrix distribution
+
+## Optimization Guidelines
+- Process Count Selection
+  - Match available CPU cores
+  - Use powers of 2
+  - Monitor system resources
+
+- Matrix Size Considerations
+  - Large enough for parallelization benefits
+  - Consider memory constraints
+  - Account for CPU cache
+
+- Network Considerations
+  - Minimize communication overhead
+  - Use appropriate network interface
+  - Consider topology
 
